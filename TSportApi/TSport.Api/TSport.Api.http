@@ -1,0 +1,6 @@
+@TSport.Api_HostAddress = http://localhost:5102
+
+GET {{TSport.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
