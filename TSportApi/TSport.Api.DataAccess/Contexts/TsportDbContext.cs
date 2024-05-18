@@ -37,9 +37,6 @@ public partial class TsportDbContext : DbContext
 
     public virtual DbSet<ShirtEdition> ShirtEditions { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseSqlServer("Server=(local);database=TSportDb;uid=sa;pwd=12345;TrustServerCertificate=True;");
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
