@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -29,17 +30,15 @@ namespace TSport.Api.Controllers
 
         [HttpGet("ViewShirts/{page}")]
         public async Task<ActionResult<List<GetShirtDto>>> ViewShirts(
-            string code,
-            string nameOfShirt,
+            string? keyWord,
 //            string nameOfPlayer, 
 //            string season, 
-            string status,
-            string sortedBy,
-            string sortOrder,
+            [DefaultValue("Code or NameOfShirt or ShirtEdition")] string? sortedBy,
+            [DefaultValue("Default is Ascending")] string? sortOrder,
             int page
             )
         {
-            var result = await _serviceFactory.GetShirtService().ViewShirts(code, nameOfShirt, status, sortedBy, sortOrder, page);
+            var result = await _serviceFactory.GetShirtService().ViewShirts(keyWord, sortedBy, sortOrder, page);
             return Ok(result);
         }
 

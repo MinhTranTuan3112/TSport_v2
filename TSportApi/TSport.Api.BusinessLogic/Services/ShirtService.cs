@@ -33,19 +33,18 @@ namespace TSport.Api.BusinessLogic.Services
         }
 
         public async Task<List<GetShirtDto>> ViewShirts(
-            string code, 
-            string nameOfShirt, 
+            string keyWord,
 //            string nameOfPlayer, 
 //            string season, 
-            string status, 
             string sortedBy, 
             string sortOrder,
             int page
             )
         {
-            List<Shirt> listShirtWithFilter = new List<Shirt>();
+            List<Shirt> listShirtAfterFilter = new List<Shirt>();
             List<Shirt> listShirtAfterSorted = new List<Shirt>();
             List<Shirt> listShirtAfterPaging = new List<Shirt>();
+            var _keyWord = keyWord == null ? "" : keyWord.ToLower();
 
             // Get all shirts
             var listShirts = await _unitOfWork.GetShirtRepository().GetAllAsync();
@@ -55,15 +54,17 @@ namespace TSport.Api.BusinessLogic.Services
             {
 //                var playerOfShirt = _serviceFactory.get
                 if (
-                    (code is not null && shirt.Code.ToLower().Contains(code.ToLower()))
-                    && (nameOfShirt is not null && shirt.Description.ToLower().Contains(nameOfShirt.ToLower()))
+                    //Search
+                    shirt.Code.ToLower().Contains(_keyWord) || shirt.Description.ToLower().Contains(_keyWord)
+
+                    // filter
 //                  Search theo hai cai nay tui add vao sau khi co GetPlayer/GetSeason
 //                    && playerOfShirt.Contains(nameOfPlayer) 
 //                    && playerOfShirt.Contains(seasone) 
-                    && shirt.Status.Equals("Active")
+                    && shirt.Status.Equals("Active") 
                     )
                 {
-                    listShirtWithFilter.Add(shirt);
+                    listShirtAfterFilter.Add(shirt);
                 }
             }
 
@@ -72,18 +73,18 @@ namespace TSport.Api.BusinessLogic.Services
             {
                 case "Code":
                     listShirtAfterSorted = sortOrder == "Descending"
-                        ? listShirtWithFilter.OrderByDescending(s => s.Code).ToList()
-                        : listShirtWithFilter.OrderBy(s => s.Code).ToList();
+                        ? listShirtAfterFilter.OrderByDescending(s => s.Code).ToList()
+                        : listShirtAfterFilter.OrderBy(s => s.Code).ToList();
                     break;
                 case "NameOfShirt":
                     listShirtAfterSorted = sortOrder == "Descending"
-                        ? listShirtWithFilter.OrderByDescending(s => s.Description).ToList()
-                        : listShirtWithFilter.OrderBy(s => s.Description).ToList();
+                        ? listShirtAfterFilter.OrderByDescending(s => s.Description).ToList()
+                        : listShirtAfterFilter.OrderBy(s => s.Description).ToList();
                     break;
                 case "ShirtEdition":
                     listShirtAfterSorted = sortOrder == "Descending"
-                        ? listShirtWithFilter.OrderByDescending(s => s.ShirtEditionId).ToList()
-                        : listShirtWithFilter.OrderBy(s => s.ShirtEditionId).ToList();
+                        ? listShirtAfterFilter.OrderByDescending(s => s.ShirtEditionId).ToList()
+                        : listShirtAfterFilter.OrderBy(s => s.ShirtEditionId).ToList();
                     break;
 /*
                 case "NameOfPlayer":
@@ -98,7 +99,7 @@ namespace TSport.Api.BusinessLogic.Services
                     break;
 */
                 default:
-                    listShirtAfterSorted = listShirtWithFilter;
+                    listShirtAfterSorted = listShirtAfterFilter;
                     break;
             }
 
