@@ -28,7 +28,8 @@ namespace TSport.Api.DataAccess.DTOs.Shirts
 
         public int? ModifiedAccountId { get; set; }
 
-
+//      punlic Player player { get; set; }
+//      punlic Season season { get; set; }
         public GetShirtEditionDto? ShirtEdition { get; set; }
     }
 }
