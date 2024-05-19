@@ -8,5 +8,7 @@ namespace TSport.Api.BusinessLogic.Interfaces
     public interface IServiceFactory
     {
         IShirtService GetShirtService();
+        ITokenService GetTokenService();
+        IAuthService GetAuthService();
     }
 }

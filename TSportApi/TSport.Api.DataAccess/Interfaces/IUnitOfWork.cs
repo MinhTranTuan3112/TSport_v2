@@ -10,5 +10,7 @@ namespace TSport.Api.DataAccess.Interfaces
         Task<int> SaveChangesAsync();
 
         IShirtRepository GetShirtRepository();
+
+        IAccountRepository GetAccountRepository();
     }
 }

@@ -13,11 +13,18 @@ namespace TSport.Api.DataAccess
         private readonly TsportDbContext _context;
 
         private readonly Lazy<IShirtRepository> _shirtRepository;
+        private readonly Lazy<IAccountRepository> _accountRepository;
 
         public UnitOfWork(TsportDbContext context)
         {
             _context = context;
             _shirtRepository = new Lazy<IShirtRepository>(() => new ShirtRepository(context));
+            _accountRepository = new Lazy<IAccountRepository>(() => new AccountRepositoy(context));
+        }
+
+        public IAccountRepository GetAccountRepository()
+        {
+            return _accountRepository.Value;
         }
 
         public IShirtRepository GetShirtRepository()
