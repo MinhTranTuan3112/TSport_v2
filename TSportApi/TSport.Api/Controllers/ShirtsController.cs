@@ -27,7 +27,7 @@ namespace TSport.Api.Controllers
             return await _serviceFactory.GetShirtService().GetShirts();
         }
 
-        [HttpGet]
+        [HttpGet("ViewShirts/{page}")]
         public async Task<ActionResult<List<GetShirtDto>>> ViewShirts(
             string code,
             string nameOfShirt,
