@@ -78,5 +78,19 @@ namespace TSport.Api.DataAccess.Repositories
                 _ => shirt => shirt.Id,
             };
         }
+        public Task<Shirt> GetShirtDetail(int id) 
+        {
+            var query = _context.Shirts
+                .AsNoTracking()
+                .Include(s => s.ShirtEdition)
+                .Include(s => s.SeasonPlayer)
+                    .ThenInclude(sp => sp.Player)
+                .Include(s => s.SeasonPlayer)
+                    .ThenInclude(sp => sp.Season)
+                        .ThenInclude(se => se.Club)
+                .SingleOrDefaultAsync(s => s.Id == id);
+
+            return query;
+        } 
     }
 }

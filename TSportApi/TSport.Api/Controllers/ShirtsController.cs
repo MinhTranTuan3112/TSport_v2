@@ -42,5 +42,11 @@ namespace TSport.Api.Controllers
                 EndPrice = endPrice
             });
         }
+
+        [HttpGet("ViewShirtDetail/{id}")]
+        public async Task<ActionResult<GetShirtDetailDTO>> ViewShirtDetail(int id)
+        {
+            return await _serviceFactory.GetShirtService().GetShirtDetail(id);
+        }
     }
 }

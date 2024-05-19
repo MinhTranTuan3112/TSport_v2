@@ -36,5 +36,11 @@ namespace TSport.Api.BusinessLogic.Services
         {
             return await _unitOfWork.GetShirtRepository().Entities.ProjectToType<GetShirtDto>().ToListAsync();
         }
+
+        public async Task<GetShirtDetailDTO> GetShirtDetail(int id)
+        {
+
+            return (await _unitOfWork.GetShirtRepository().GetShirtDetail(id)).Adapt<GetShirtDetailDTO>();
+        }
     }
 }
