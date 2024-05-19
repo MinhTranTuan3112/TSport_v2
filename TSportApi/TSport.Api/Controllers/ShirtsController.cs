@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TSport.Api.BusinessLogic.Interfaces;
@@ -47,6 +49,12 @@ namespace TSport.Api.Controllers
         public async Task<ActionResult<GetShirtDetailDTO>> ViewShirtDetail(int id)
         {
             return await _serviceFactory.GetShirtService().GetShirtDetail(id);
+        }
+
+        [HttpPost("CreateShirt")]
+        public async Task<ActionResult<GetShirtDetailDTO>> CreateShirt(QueryShirtDto queryShirtDto)
+        {
+            return await _serviceFactory.GetShirtService().CreateShirt(queryShirtDto, User);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TSport.Api.DataAccess.DTOs.Query;
 using TSport.Api.DataAccess.DTOs.Shirts;
@@ -14,5 +15,7 @@ namespace TSport.Api.BusinessLogic.Interfaces
         Task<PagedResult<GetShirtInPagingResultDto>> GetPagedShirts(QueryPagedShirtsDto queryPagedShirtsDto);
 
         Task<GetShirtDetailDTO> GetShirtDetail(int id);
+
+        Task<GetShirtDetailDTO> CreateShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user); 
     }
 }
