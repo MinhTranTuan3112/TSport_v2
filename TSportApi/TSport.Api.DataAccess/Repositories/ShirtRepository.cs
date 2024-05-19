@@ -91,6 +91,20 @@ namespace TSport.Api.DataAccess.Repositories
                 .SingleOrDefaultAsync(s => s.Id == id);
 
             return query;
-        } 
+        }
+        public async void CreateShirt(Shirt shirt)
+        {
+
+            var query = await _context.Shirts
+                .AddAsync(shirt);
+
+
+            await _context.SaveChangesAsync();
+
+        }
+        public int CountShirt()
+        {
+            return _context.Shirts.Count();
+        }
     }
 }
