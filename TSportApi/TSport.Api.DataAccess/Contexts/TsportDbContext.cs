@@ -36,15 +36,11 @@ public partial class TsportDbContext : DbContext
 
     public virtual DbSet<ShirtEdition> ShirtEditions { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(local);database=TSportDb;uid=sa;pwd=12345;TrustServerCertificate=True;");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC070061CE67");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC07B9D030D7");
 
             entity.ToTable("Account");
 
@@ -64,7 +60,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Club>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Club__3214EC07CFC1E695");
+            entity.HasKey(e => e.Id).HasName("PK__Club__3214EC07CA9A4CAC");
 
             entity.ToTable("Club");
 
@@ -88,7 +84,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC07F1ECC5DE");
+            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC079EB35759");
 
             entity.ToTable("Order");
 
@@ -113,7 +109,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => new { e.OrderId, e.ShirtId }).HasName("PK__OrderDet__63098A9E25A26A1B");
+            entity.HasKey(e => new { e.OrderId, e.ShirtId }).HasName("PK__OrderDet__63098A9EC553C05A");
 
             entity.ToTable("OrderDetail");
 
@@ -134,7 +130,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Payment__3214EC077095F744");
+            entity.HasKey(e => e.Id).HasName("PK__Payment__3214EC0783509957");
 
             entity.ToTable("Payment");
 
@@ -163,7 +159,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Player__3214EC0750E097DF");
+            entity.HasKey(e => e.Id).HasName("PK__Player__3214EC07A5F38FA6");
 
             entity.ToTable("Player");
 
@@ -192,7 +188,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Season>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Season__3214EC072E9BB894");
+            entity.HasKey(e => e.Id).HasName("PK__Season__3214EC0733E552CE");
 
             entity.ToTable("Season");
 
@@ -219,7 +215,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<SeasonPlayer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonPl__3214EC07393B9A6F");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonPl__3214EC07A8186F49");
 
             entity.ToTable("SeasonPlayer");
 
@@ -236,7 +232,7 @@ public partial class TsportDbContext : DbContext
 
         modelBuilder.Entity<Shirt>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Shirt__3214EC07CBA959D5");
+            entity.HasKey(e => e.Id).HasName("PK__Shirt__3214EC07B9BEA833");
 
             entity.ToTable("Shirt");
 
@@ -259,16 +255,18 @@ public partial class TsportDbContext : DbContext
 
             entity.HasOne(d => d.SeasonPlayer).WithMany(p => p.Shirts)
                 .HasForeignKey(d => d.SeasonPlayerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Shirt__SeasonPla__619B8048");
 
             entity.HasOne(d => d.ShirtEdition).WithMany(p => p.Shirts)
                 .HasForeignKey(d => d.ShirtEditionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Shirt__ShirtEdit__60A75C0F");
         });
 
         modelBuilder.Entity<ShirtEdition>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ShirtEdi__3214EC07538517B8");
+            entity.HasKey(e => e.Id).HasName("PK__ShirtEdi__3214EC075A85A303");
 
             entity.ToTable("ShirtEdition");
 
