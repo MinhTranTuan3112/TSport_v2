@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using TSport.Api.BusinessLogic.Interfaces;
 using TSport.Api.DataAccess.DTOs.Query;
@@ -51,10 +53,19 @@ namespace TSport.Api.Controllers
             return await _serviceFactory.GetShirtService().GetShirtDetail(id);
         }
 
+        [Authorize]
         [HttpPost("CreateShirt")]
         public async Task<ActionResult<GetShirtDetailDTO>> CreateShirt(QueryShirtDto queryShirtDto)
         {
-            return await _serviceFactory.GetShirtService().CreateShirt(queryShirtDto, User);
+            try
+            {
+                return await _serviceFactory.GetShirtService().CreateShirt(queryShirtDto, User);
+            } 
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
