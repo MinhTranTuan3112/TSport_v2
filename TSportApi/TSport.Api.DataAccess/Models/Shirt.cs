@@ -13,9 +13,9 @@ public partial class Shirt
 
     public string? Status { get; set; }
 
-    public int? ShirtEditionId { get; set; }
+    public int ShirtEditionId { get; set; }
 
-    public int? SeasonPlayerId { get; set; }
+    public int SeasonPlayerId { get; set; }
 
     public DateTime CreatedDate { get; set; }
 
@@ -31,7 +31,7 @@ public partial class Shirt
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
-    public virtual SeasonPlayer? SeasonPlayer { get; set; }
+    public virtual SeasonPlayer SeasonPlayer { get; set; } = null!;
 
-    public virtual ShirtEdition? ShirtEdition { get; set; }
+    public virtual ShirtEdition ShirtEdition { get; set; } = null!;
 }

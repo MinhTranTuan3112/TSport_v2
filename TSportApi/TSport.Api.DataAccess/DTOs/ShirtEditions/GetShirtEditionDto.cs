@@ -15,7 +15,7 @@ namespace TSport.Api.DataAccess.DTOs.ShirtEditions
 
         public bool? HasSignature { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         public string? Color { get; set; }
 

@@ -13,7 +13,7 @@ public partial class ShirtEdition
 
     public bool? HasSignature { get; set; }
 
-    public decimal? Price { get; set; }
+    public decimal Price { get; set; }
 
     public string? Color { get; set; }
 
