@@ -12,9 +12,9 @@ namespace TSport.Api.DataAccess.Interfaces
     {
         Task<PagedResult<Shirt>> GetPagedShirts(QueryPagedShirtsDto queryPagedShirtsDto);
 
-        Task<Shirt> GetShirtDetail(int id);
+        Task<Shirt?> GetShirtDetailById(int id);
 
-        void CreateShirt(Shirt shirt);
-        int CountShirt();
+        void AddShirt(Shirt shirt);
+        int CountShirts();
     }
 }

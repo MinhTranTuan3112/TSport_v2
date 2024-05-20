@@ -39,37 +39,33 @@ namespace TSport.Api.BusinessLogic.Services
             return await _unitOfWork.GetShirtRepository().Entities.ProjectToType<GetShirtDto>().ToListAsync();
         }
 
-        public async Task<GetShirtDetailDTO> GetShirtDetail(int id)
+        public async Task<GetShirtDetailDTO> GetShirtDetailById(int id)
         {
 
-            return (await _unitOfWork.GetShirtRepository().GetShirtDetail(id)).Adapt<GetShirtDetailDTO>();
+            return (await _unitOfWork.GetShirtRepository().GetShirtDetailById(id)).Adapt<GetShirtDetailDTO>();
         }
 
-        public async Task<GetShirtDetailDTO> CreateShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
+        public async Task<GetShirtDetailDTO> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
         {
-            string userId = "1";
-
-            if (!(user.FindFirst(ClaimTypes.NameIdentifier)?.Value == null))
+            if (user.FindFirst(ClaimTypes.NameIdentifier)?.Value == null)
             {
-                userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;    
+                 throw new BadRequestException("User Unauthorized");
             }
-            else
-            {
-                throw new Exception("User Unauthorized");
-            }
+            
+            string userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;   
 
             Shirt shirt = queryShirtDto.Adapt<Shirt>();
             shirt.CreatedAccountId = int.Parse(userId);
             shirt.CreatedDate = DateTime.Now;
             shirt.Id = CountShirt() + 1;
 
-            _unitOfWork.GetShirtRepository().CreateShirt(shirt);
+            _unitOfWork.GetShirtRepository().AddShirt(shirt);
 
-            return await GetShirtDetail(shirt.Id);
+            return await GetShirtDetailById(shirt.Id);
         }
         private int CountShirt()
         {
-            return _unitOfWork.GetShirtRepository().CountShirt();
+            return _unitOfWork.GetShirtRepository().CountShirts();
         } 
     }
 }

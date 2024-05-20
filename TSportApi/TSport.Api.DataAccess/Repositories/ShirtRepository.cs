@@ -78,7 +78,7 @@ namespace TSport.Api.DataAccess.Repositories
                 _ => shirt => shirt.Id,
             };
         }
-        public Task<Shirt> GetShirtDetail(int id) 
+        public Task<Shirt?> GetShirtDetailById(int id) 
         {
             var query = _context.Shirts
                 .AsNoTracking()
@@ -92,7 +92,7 @@ namespace TSport.Api.DataAccess.Repositories
 
             return query;
         }
-        public async void CreateShirt(Shirt shirt)
+        public async void AddShirt(Shirt shirt)
         {
 
             var query = await _context.Shirts
@@ -102,7 +102,7 @@ namespace TSport.Api.DataAccess.Repositories
             await _context.SaveChangesAsync();
 
         }
-        public int CountShirt()
+        public int CountShirts()
         {
             return _context.Shirts.Count();
         }

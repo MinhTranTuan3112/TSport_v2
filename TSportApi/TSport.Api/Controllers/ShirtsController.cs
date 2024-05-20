@@ -47,25 +47,17 @@ namespace TSport.Api.Controllers
             });
         }
 
-        [HttpGet("ViewShirtDetail/{id}")]
+        [HttpGet("view-shirt-detail/{id}")]
         public async Task<ActionResult<GetShirtDetailDTO>> ViewShirtDetail(int id)
         {
-            return await _serviceFactory.GetShirtService().GetShirtDetail(id);
+            return await _serviceFactory.GetShirtService().GetShirtDetailById(id);
         }
 
         [Authorize]
-        [HttpPost("CreateShirt")]
+        [HttpPost("create-shirt")]
         public async Task<ActionResult<GetShirtDetailDTO>> CreateShirt(QueryShirtDto queryShirtDto)
         {
-            try
-            {
-                return await _serviceFactory.GetShirtService().CreateShirt(queryShirtDto, User);
-            } 
-            catch (Exception ex) 
-            { 
-                return BadRequest(ex.Message);
-            }
-            
+            return await _serviceFactory.GetShirtService().AddShirt(queryShirtDto, User);
         }
     }
 }
