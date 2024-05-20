@@ -21,7 +21,7 @@ namespace TSport.Api.Extensions
                     .AddAuthenticationServicesWithConfigurations(configuration)
                     .AddSwaggerConfigurations()
                     .AddCorsConfigurations();
-                    
+
             return services;
         }
 
@@ -39,6 +39,7 @@ namespace TSport.Api.Extensions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
+                // options.SwaggerDoc("v1", new OpenApiInfo { Title = "TSport API", Version = "v1" });
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
                 {
                     Description =
