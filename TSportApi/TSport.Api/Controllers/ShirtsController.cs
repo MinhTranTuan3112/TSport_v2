@@ -42,5 +42,11 @@ namespace TSport.Api.Controllers
                 EndPrice = endPrice
             });
         }
+
+        [HttpPost]
+        public async Task<ActionResult<GetShirtDetailDto>> CreateShirt(QueryShirtDto queryShirtDto)
+        {
+            return await _serviceFactory.GetShirtService().AddShirt(queryShirtDto, User);
+        }
     }
 }
