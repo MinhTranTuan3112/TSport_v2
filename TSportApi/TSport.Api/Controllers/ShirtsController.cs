@@ -52,12 +52,5 @@ namespace TSport.Api.Controllers
         {
             return await _serviceFactory.GetShirtService().GetShirtDetailById(id);
         }
-
-//        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<GetShirtDetailDto>> CreateShirt(QueryShirtDto queryShirtDto)
-        {
-            return await _serviceFactory.GetShirtService().AddShirt(queryShirtDto, User);
-        }
     }
 }

@@ -44,30 +44,5 @@ namespace TSport.Api.BusinessLogic.Services
 
             return (await _unitOfWork.GetShirtRepository().GetShirtDetailById(id)).Adapt<GetShirtDetailDto>();
         }
-
-        public async Task<GetShirtDetailDto> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
-        {
-            //            string? userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            string userId = "1";
-            if (userId is null)
-            {
-                throw new BadRequestException("User Unauthorized");
-            }
-
-            Shirt shirt = queryShirtDto.Adapt<Shirt>();
-            shirt.CreatedAccountId = int.Parse(userId);
-            shirt.CreatedDate = DateTime.Now;
-//            shirt.Id = CountShirt() + 1;
-
-            await _unitOfWork.GetShirtRepository().AddAsync(shirt);
-            await _unitOfWork.SaveChangesAsync();
-
-            return await GetShirtDetailById(CountShirt());
-        }
-        private int CountShirt()
-        {
-            return _unitOfWork.GetShirtRepository().Entities.Count();
-        } 
     }
 }
