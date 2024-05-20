@@ -38,7 +38,7 @@ namespace TSport.Api.BusinessLogic.Services
         {
             return await _unitOfWork.GetShirtRepository().Entities.ProjectToType<GetShirtDto>().ToListAsync();
         }
-        public async Task<GetShirtDetailDto> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
+        public async Task<GetShirtDetailDto> AddShirt(InsertShirtDto insertShirtDto, ClaimsPrincipal user)
         {
             string? userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -47,7 +47,8 @@ namespace TSport.Api.BusinessLogic.Services
                 throw new BadRequestException("User Unauthorized");
             }
 
-            Shirt shirt = queryShirtDto.Adapt<Shirt>();
+            Shirt shirt = insertShirtDto.Adapt<Shirt>();
+            shirt.Status = "Active";
             shirt.CreatedAccountId = int.Parse(userId);
             shirt.CreatedDate = DateTime.Now;
             shirt.Id = CountShirt() + 1;  // tui thu bo cai nay r nhung ma chay api len no tra ve loi Id = null khong add vao DB duoc

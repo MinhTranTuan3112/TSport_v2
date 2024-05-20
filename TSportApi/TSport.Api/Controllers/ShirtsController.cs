@@ -44,9 +44,9 @@ namespace TSport.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetShirtDetailDto>> CreateShirt(QueryShirtDto queryShirtDto)
+        public async Task<ActionResult<GetShirtDetailDto>> CreateShirt(InsertShirtDto insertShirtDto)
         {
-            return await _serviceFactory.GetShirtService().AddShirt(queryShirtDto, User);
+            return await _serviceFactory.GetShirtService().AddShirt(insertShirtDto, User);
         }
     }
 }
