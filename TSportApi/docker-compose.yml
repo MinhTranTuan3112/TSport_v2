@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  tsport.api:
+    image: ${DOCKER_REGISTRY-}tsportapi
+    container_name: tsport.api
+    build:
+      context: .
+      dockerfile: TSport.Api/Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TSportDb;User Id=sa;Password=12345;
+    depends_on:
+      - tsport.db
+  tsport.db:
+    image: tsportdb
+    container_name: tsport.db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=12345
+      - ASPNETCORE_ENVIRONMENT=Development
