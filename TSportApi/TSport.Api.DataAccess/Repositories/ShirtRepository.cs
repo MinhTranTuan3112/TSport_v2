@@ -47,15 +47,15 @@ namespace TSport.Api.DataAccess.Repositories
             }
 
             //Sort
-            query = sortByDesc ? query.OrderByDescending(TestGetSortProperty(sortColumn))
-                                : query.OrderBy(TestGetSortProperty(sortColumn));
+            query = sortByDesc ? query.OrderByDescending(GetSortProperty(sortColumn))
+                                : query.OrderBy(GetSortProperty(sortColumn));
 
             //Paging
             return await query.ToPagniationListAsync(pageNumber, pageSize);
 
         }
 
-        private Expression<Func<Shirt, object>> TestGetSortProperty(string sortColumn)
+        private Expression<Func<Shirt, object>> GetSortProperty(string sortColumn)
         {
             return sortColumn.ToLower() switch
             {
@@ -67,16 +67,5 @@ namespace TSport.Api.DataAccess.Repositories
             };
         }
 
-        private Expression<Func<GetShirtInPagingResultDto, object>> GetSortProperty(string sortColumn)
-        {
-            return sortColumn.ToLower() switch
-            {
-                "code" => shirt => (shirt.Code == null) ? shirt.Id : shirt.Code,
-                "description" => shirt => (shirt.Description == null) ? shirt.Id : shirt.Description,
-                "status" => shirt => (shirt.Status == null) ? shirt.Id : shirt.Status,
-                "createddate" => shirt => shirt.CreatedDate,
-                _ => shirt => shirt.Id,
-            };
-        }
     }
 }
