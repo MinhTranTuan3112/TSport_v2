@@ -10,18 +10,15 @@ namespace TSport.Api.DataAccess.DTOs.Query
     public class InsertShirtDto
     {
         [Required]
-        [RegularExpression("^SRT\\d{3}$")]
         public string? Code { get; set; }
 
         [Required]
         public string? Description { get; set; }
 
         [Required]
-        [RegularExpression("^\\d+$")]
         public int? ShirtEditionId { get; set; }
 
         [Required]
-        [RegularExpression("^\\d+$")]
         public int? SeasonPlayerId { get; set; }
     }
 }
