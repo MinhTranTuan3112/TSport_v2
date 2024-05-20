@@ -39,33 +39,35 @@ namespace TSport.Api.BusinessLogic.Services
             return await _unitOfWork.GetShirtRepository().Entities.ProjectToType<GetShirtDto>().ToListAsync();
         }
 
-        public async Task<GetShirtDetailDTO> GetShirtDetailById(int id)
+        public async Task<GetShirtDetailDto> GetShirtDetailById(int id)
         {
 
-            return (await _unitOfWork.GetShirtRepository().GetShirtDetailById(id)).Adapt<GetShirtDetailDTO>();
+            return (await _unitOfWork.GetShirtRepository().GetShirtDetailById(id)).Adapt<GetShirtDetailDto>();
         }
 
-        public async Task<GetShirtDetailDTO> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
+        public async Task<GetShirtDetailDto> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user)
         {
-            if (user.FindFirst(ClaimTypes.NameIdentifier)?.Value == null)
+            //            string? userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            string userId = "1";
+            if (userId is null)
             {
-                 throw new BadRequestException("User Unauthorized");
+                throw new BadRequestException("User Unauthorized");
             }
-            
-            string userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;   
 
             Shirt shirt = queryShirtDto.Adapt<Shirt>();
             shirt.CreatedAccountId = int.Parse(userId);
             shirt.CreatedDate = DateTime.Now;
-            shirt.Id = CountShirt() + 1;
+//            shirt.Id = CountShirt() + 1;
 
-            _unitOfWork.GetShirtRepository().AddShirt(shirt);
+            await _unitOfWork.GetShirtRepository().AddAsync(shirt);
+            await _unitOfWork.SaveChangesAsync();
 
-            return await GetShirtDetailById(shirt.Id);
+            return await GetShirtDetailById(CountShirt());
         }
         private int CountShirt()
         {
-            return _unitOfWork.GetShirtRepository().CountShirts();
+            return _unitOfWork.GetShirtRepository().Entities.Count();
         } 
     }
 }

@@ -14,8 +14,8 @@ namespace TSport.Api.BusinessLogic.Interfaces
         
         Task<PagedResult<GetShirtInPagingResultDto>> GetPagedShirts(QueryPagedShirtsDto queryPagedShirtsDto);
 
-        Task<GetShirtDetailDTO> GetShirtDetailById(int id);
+        Task<GetShirtDetailDto> GetShirtDetailById(int id);
 
-        Task<GetShirtDetailDTO> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user); 
+        Task<GetShirtDetailDto> AddShirt(QueryShirtDto queryShirtDto, ClaimsPrincipal user); 
     }
 }

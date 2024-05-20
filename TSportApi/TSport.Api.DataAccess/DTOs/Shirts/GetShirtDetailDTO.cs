@@ -8,7 +8,7 @@ using TSport.Api.DataAccess.DTOs.ShirtEditions;
 
 namespace TSport.Api.DataAccess.DTOs.Shirts
 {
-    public class GetShirtDetailDTO
+    public class GetShirtDetailDto
     {
         public int Id { get; set; }
 

@@ -14,7 +14,5 @@ namespace TSport.Api.DataAccess.Interfaces
 
         Task<Shirt?> GetShirtDetailById(int id);
 
-        void AddShirt(Shirt shirt);
-        int CountShirts();
     }
 }

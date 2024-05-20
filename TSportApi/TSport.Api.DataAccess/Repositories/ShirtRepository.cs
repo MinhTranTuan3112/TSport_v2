@@ -78,9 +78,9 @@ namespace TSport.Api.DataAccess.Repositories
                 _ => shirt => shirt.Id,
             };
         }
-        public Task<Shirt?> GetShirtDetailById(int id) 
+        public async Task<Shirt?> GetShirtDetailById(int id) 
         {
-            var query = _context.Shirts
+            var shirt = await _context.Shirts
                 .AsNoTracking()
                 .Include(s => s.ShirtEdition)
                 .Include(s => s.SeasonPlayer)
@@ -90,21 +90,7 @@ namespace TSport.Api.DataAccess.Repositories
                         .ThenInclude(se => se.Club)
                 .SingleOrDefaultAsync(s => s.Id == id);
 
-            return query;
-        }
-        public async void AddShirt(Shirt shirt)
-        {
-
-            var query = await _context.Shirts
-                .AddAsync(shirt);
-
-
-            await _context.SaveChangesAsync();
-
-        }
-        public int CountShirts()
-        {
-            return _context.Shirts.Count();
+            return shirt;
         }
     }
 }
