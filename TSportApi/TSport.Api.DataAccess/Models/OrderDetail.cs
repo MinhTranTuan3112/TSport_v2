@@ -20,4 +20,7 @@ public partial class OrderDetail
     public virtual Order Order { get; set; } = null!;
 
     public virtual Shirt Shirt { get; set; } = null!;
+    // 1 order details co 1 Shirtedition ?
+    public virtual ShirtEdition ShirtEditions { get; set; } = null!;
+
 }
