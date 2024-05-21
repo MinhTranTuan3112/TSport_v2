@@ -35,7 +35,7 @@ namespace TSport.Api.Extensions
         private static IServiceCollection AddSwaggerConfigurations(this IServiceCollection services)
         {
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Learn aore about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {

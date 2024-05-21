@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSport.Api.DataAccess.DTOs.Cart;
+using TSport.Api.DataAccess.Models;
 
 namespace TSport.Api.DataAccess.Interfaces
 {
-    internal class IOrderRepository
+    public interface IOrderRepository : IGenericRepository<Order>
+
     {
+            Task<getCartDTO> getCartInfo(int userid);  
+
+
+
     }
 }

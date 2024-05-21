@@ -17,6 +17,7 @@ using TSport.Api.Shared.Exceptions;
 namespace TSport.Api.BusinessLogic.Services
 {
     public class AuthService : IAuthService
+
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IServiceFactory _serviceFactory;

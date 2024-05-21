@@ -22,6 +22,8 @@ namespace TSport.Api.DataAccess.Extensions
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IShirtRepository, ShirtRepository>();
             services.AddScoped<IAccountRepository, AccountRepositoy>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             return services;
         }
     }
