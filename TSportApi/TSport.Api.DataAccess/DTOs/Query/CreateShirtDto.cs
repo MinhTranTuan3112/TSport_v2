@@ -10,15 +10,15 @@ namespace TSport.Api.DataAccess.DTOs.Query
     public class InsertShirtDto
     {
         [Required]
-        public string? Code { get; set; }
+        public required string Code { get; set; }
 
         [Required]
-        public string? Description { get; set; }
+        public required string Description { get; set; }
 
         [Required]
-        public int? ShirtEditionId { get; set; }
+        public int ShirtEditionId { get; set; }
 
         [Required]
-        public int? SeasonPlayerId { get; set; }
+        public int SeasonPlayerId { get; set; }
     }
 }
