@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TSport.Api.DataAccess.DTOs.Query
 {
-    public class InsertShirtDto
+    public class CreateShirtDto
     {
         [Required]
         public required string Code { get; set; }
