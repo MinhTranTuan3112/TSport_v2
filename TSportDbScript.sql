@@ -39,7 +39,7 @@ create table [Order](
    Code nvarchar(255),
    OrderDate datetime,
    [Status] nvarchar(100),
-   Total decimal(10, 2),
+   Total money,
    CreatedDate datetime not null default GETDATE(),
    CreatedAccountId int not null,
    ModifiedDate datetime null,
@@ -140,10 +140,11 @@ create table ShirtEdition (
    Code nvarchar(255),
    Size nvarchar(10),
    HasSignature bit,
-   Price decimal(10, 2) not null,
+   Price money not null,
    Color nvarchar(255),
    [Status] nvarchar(100),
    Origin nvarchar(255),
+   Quantity int,
    Material nvarchar(255),
    SeasonId int not null,
    CreatedDate datetime not null default GETDATE(),
@@ -162,6 +163,7 @@ create table Shirt(
   Id int identity(1,1) not null,
   Code nvarchar(255),
   [Description] nvarchar(255),
+  Quantity int,
   [Status] nvarchar(100),
   ShirtEditionId int not null,
   SeasonPlayerId int not null,
@@ -182,7 +184,7 @@ create table OrderDetail(
   OrderId int not null,
   ShirtId int not null,
   Code nvarchar(255),
-  Subtotal decimal(10,2),
+  Subtotal money,
   Quantity int,
   [Status] nvarchar(100),
 
@@ -190,6 +192,15 @@ create table OrderDetail(
   primary key (OrderId, ShirtId),
   foreign key (OrderId) references dbo.[Order](Id),
   foreign key (ShirtId) references dbo.Shirt(Id)
+);
+
+create table [Image] (
+   Id int not null,
+   [Url] nvarchar(max),
+   ImageId int not null,
+
+   primary key (Id),
+   foreign key (ImageId) references dbo.Shirt(Id)
 );
 
 ---- Insert data into Account table
@@ -231,28 +242,28 @@ VALUES
   (3, 5);
 
 -- Insert data into ShirtEdition table
-INSERT INTO ShirtEdition (Code, Size, HasSignature, Price, Color, [Status], Origin, Material, SeasonId, CreatedAccountId)
+INSERT INTO ShirtEdition (Code, Size, HasSignature, Price, Color, [Status], Origin, Material, SeasonId, CreatedAccountId, Quantity)
 VALUES
-  ('SE001', 'S', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1),
-  ('SE002', 'M', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1),
-  ('SE003', 'L', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1),
-  ('SE004', 'XL', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1),
-  ('SE005', 'S', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1),
-  ('SE006', 'M', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1),
-  ('SE007', 'L', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1),
-  ('SE008', 'XL', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1);
+  ('SE001', 'S', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1, 34),
+  ('SE002', 'M', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1, 45),
+  ('SE003', 'L', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1, 67),
+  ('SE004', 'XL', 0, 79.99, 'Red', 'Active', 'Made in China', 'Cotton', 1, 1, 87),
+  ('SE005', 'S', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1, 76),
+  ('SE006', 'M', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1, 32),
+  ('SE007', 'L', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1, 15),
+  ('SE008', 'XL', 1, 99.99, 'Blue', 'Active', 'Made in Italy', 'Cotton', 3, 1, 54);
 
 -- Insert data into Shirt table
-INSERT INTO Shirt (Code, [Description], [Status], ShirtEditionId, SeasonPlayerId, CreatedAccountId)
+INSERT INTO Shirt (Code, [Description], [Status], ShirtEditionId, SeasonPlayerId, CreatedAccountId, Quantity)
 VALUES
-  ('SRT001', 'Real Madrid Home Jersey', 'Active', 1, 1, 1),
-  ('SRT002', 'Real Madrid Home Jersey', 'Active', 2, 1, 1),
-  ('SRT003', 'Real Madrid Home Jersey', 'Active', 3, 1, 1),
-  ('SRT004', 'Real Madrid Home Jersey', 'Active', 4, 1, 1),
-  ('SRT005', 'Barcelona Home Jersey', 'Active', 5, 3, 1),
-  ('SRT006', 'Barcelona Home Jersey', 'Active', 6, 3, 1),
-  ('SRT007', 'Barcelona Home Jersey', 'Active', 7, 3, 1),
-  ('SRT008', 'Barcelona Home Jersey', 'Active', 8, 3, 1);
+  ('SRT001', 'Real Madrid Home Jersey', 'Active', 1, 1, 1, 32),
+  ('SRT002', 'Real Madrid Home Jersey', 'Active', 2, 1, 1, 45),
+  ('SRT003', 'Real Madrid Home Jersey', 'Active', 3, 1, 1, 23),
+  ('SRT004', 'Real Madrid Home Jersey', 'Active', 4, 1, 1, 43),
+  ('SRT005', 'Barcelona Home Jersey', 'Active', 5, 3, 1, 56),
+  ('SRT006', 'Barcelona Home Jersey', 'Active', 6, 3, 1, 23),
+  ('SRT007', 'Barcelona Home Jersey', 'Active', 7, 3, 1, 30),
+  ('SRT008', 'Barcelona Home Jersey', 'Active', 8, 3, 1, 32);
 
 ---- Insert data into Order table
 --INSERT INTO [Order] (Id, Code, OrderDate, [Status], Total, CreatedAccountId)
