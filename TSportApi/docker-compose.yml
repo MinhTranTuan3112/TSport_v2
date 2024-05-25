@@ -10,7 +10,7 @@ services:
       - "1433:1433"
   tsport_api:
     image: minhtrantuan3112/tsport_api
-    build: .
+    # build: .
     environment:
       - ASPNETCORE_URLS=http://+:80
     ports:
