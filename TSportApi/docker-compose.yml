@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  tsport_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: tsport_db_container
+    environment:
+      - ACCEPT_EULA="Y"
+      - SA_PASSWORD="Password1@"
+    ports:
+      - "1433:1433"
+  tsport_api:
+    image: minhtrantuan3112/tsport_api
+    build: .
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "8080:80"
+    # depends_on:
+    #   - tsport_db

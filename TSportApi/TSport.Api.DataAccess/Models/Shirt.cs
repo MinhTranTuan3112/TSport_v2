@@ -11,6 +11,8 @@ public partial class Shirt
 
     public string? Description { get; set; }
 
+    public int? Quantity { get; set; }
+
     public string? Status { get; set; }
 
     public int ShirtEditionId { get; set; }
@@ -26,6 +28,8 @@ public partial class Shirt
     public int? ModifiedAccountId { get; set; }
 
     public virtual Account CreatedAccount { get; set; } = null!;
+
+    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual Account? ModifiedAccount { get; set; }
 

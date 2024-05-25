@@ -27,8 +27,9 @@ namespace TSport.Api.Extensions
 
         private static IServiceCollection AddDbContextWithConfigurations(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
-            services.AddDbContext<TsportDbContext>(options => options.UseSqlServer(connectionString));
+            string connectionString = configuration.GetConnectionString("DockerConnection")!;
+            services.AddDbContext<TsportDbContext>(options => 
+            options.UseSqlServer(connectionString));
             return services;
         }
 

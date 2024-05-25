@@ -21,6 +21,8 @@ public partial class ShirtEdition
 
     public string? Origin { get; set; }
 
+    public int? Quantity { get; set; }
+
     public string? Material { get; set; }
 
     public int SeasonId { get; set; }
